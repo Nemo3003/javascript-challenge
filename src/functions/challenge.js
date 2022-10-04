@@ -110,7 +110,16 @@ return paddockManagers.map(arr=>({...arr,sum:total[arr.id]})).sort((a, b)=>b.sum
 
 // 4 Objeto en que las claves sean los nombres de los campos y los valores un arreglo con los ruts de sus administradores ordenados alfabéticamente por nombre.
 export const farmManagerNames = () => {
-
+  // const farmNames = farms.map(farm => farm.name)
+  // const farmManagerNames= paddockManagers.map(paddockManager => paddockManager.name).sort()
+  let farmManagerNames = {};
+  farms.forEach((farm) => {
+    const farmPaddocks = paddocks.filter((paddock) => paddock.farmId === farm.id);
+    const farmPaddockManagers = farmPaddocks.map((paddock) => paddockManagers.find((paddockManager) => paddockManager.id === paddock.paddockManagerId));
+    farmManagerNames[farm.name] = farmPaddockManagers.sort((a, b) => a.name.localeCompare(b.name)).map((paddockManager) => paddockManager.taxNumber);
+    farmManagerNames[farm.name] = [...new Set(farmManagerNames[farm.name])];
+  });
+  return farmManagerNames;
 }
 
 // 5 Arreglo ordenado decrecientemente con los m2 totales de cada campo que tengan más de 2 hectáreas en Paltos
@@ -129,13 +138,15 @@ export const biggestAvocadoFarms = () => {
 
 // 6 Arreglo con nombres de los administradores de la FORESTAL Y AGRÍCOLA LO ENCINA, ordenados por nombre, que trabajen más de 1000 m2 de Cerezas
 export const biggestCherriesManagers = () => {
-
-
+  const fieldId=farms.filter(campo=>campo.name==="FORESTAL Y AGRICOLA LO ENCINA")[0].id
+  const fruitsId=paddockType.filter(fru=>fru.name==="CEREZAS")[0].id
+  const totalPaddocks=paddocks.filter(padd=>padd.farmId===fieldId&&padd.area>1000&&padd.paddockTypeId===fruitsId)[0].paddockManagerId
+  
+  return  paddockManagers.filter(are=>are.id===totalPaddocks).sort((a,b)=>a-b).map(are=>are.name)
 }
 
 // 7 Objeto en el cual las claves sean el nombre del administrador y el valor un arreglo con los nombres de los campos que administra, ordenados alfabéticamente
 export const farmManagerPaddocks = () => {
-
 
 }
 
@@ -148,7 +159,7 @@ export const paddocksManagers = () => {
 // Luego devolver el lugar que ocupa este nuevo administrador en el ranking de la pregunta 3.
 // No modificar arreglos originales para no alterar las respuestas anteriores al correr la solución
 export const newManagerRanking = () => {
-  
+
 }
 
 // No modificar, eliminar o alterar cualquier línea de código o comentario de acá para abajo
