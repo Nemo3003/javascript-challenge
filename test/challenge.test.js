@@ -57,13 +57,8 @@ describe("Javascript Challenge", () => {
   });
 
   test("Pregunta N6 - biggestCherriesManagers", () => {
-    expect(biggestCherriesManagers()).toStrictEqual([
-      'CARLOS PEREZ GONZALEZ',
-      'JOAQUIN ANDRADE SANDOVAL',
-      'JUAN TAPIA BURGOS',
-      'OSCAR PEREZ ZUÑIGA'
-    ]);
-  });
+    expect(biggestCherriesManagers()).toStrictEqual(["EFRAIN SOTO VERA"]);
+});
 
   test("Pregunta N7 - farmManagerPaddocks", () => {
     expect(farmManagerPaddocks()).toStrictEqual({
